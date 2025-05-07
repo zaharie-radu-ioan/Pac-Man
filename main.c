@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "map.h"
 #include "player.h"
 #include "question.h"
@@ -8,7 +9,8 @@
 
 int main() {
     init_terminal();
-    load_map();
+    srand(time(NULL));
+    spawn_enemies();
     load_questions();
     build_graph();
 
@@ -17,8 +19,11 @@ int main() {
         print_map();
         print_status();
 
-        if (process_input() == 0) break;
+        if (process_input() == 0) 
+            break;
         check_for_question();
+        move_enemies();
+        check_for_finish();
     }
 
     reset_terminal();
