@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "map.h"
+#include "player.h"
 
 
 char map[HEIGHT][WIDTH + 1] = {
@@ -22,8 +23,6 @@ char map[HEIGHT][WIDTH + 1] = {
     "##############################"
 };
 
-int player_x = 1, player_y = 1;
-int score = 0;
 
 Enemy enemies[MAX_ENEMIES];
 int num_enemies = MAX_ENEMIES;
@@ -41,9 +40,16 @@ void print_map() {
 }
 
 void print_status() {
-    printf("\nScor: %d\n", score);
+    printf("Vieți: ");
+    for (int i = 0; i < get_lives(); i++) {
+        printf("❤️ ");
+    }
+    printf("\n");
+
+    printf("Scor: %d\n", get_score()); // scorul e preluat cu funcția
     printf("Controale: W/A/S/D pentru miscare, Q pentru iesire.\n");
 }
+
 
 //functie care returneaza caracterul de la o anumita pozitie
 char get_tile(int x, int y) {
@@ -95,16 +101,19 @@ void move_enemies() {
             enemies[i].x = new_x;
             enemies[i].y = new_y;
             set_tile(new_x, new_y, 'E');
-        } else if (tile == 'P') {
-            printf("\n Ai fost prins de un inamic! GAME OVER!\n");
-            exit(0);
-        }
+    } else if (tile == 'P') {
+        decrease_life();  // logică deja tratată în player.c
     }
 }
 
+}
+
+
 void check_for_finish() {
     if (player_x == FINISH_X && player_y == FINISH_Y) {
+         increase_score(100);
         printf("\n Ai castigat! Ai ajuns la finish!\n");
+        printf("Scor final: %d\n", get_score());
         exit(0);
     }
 }

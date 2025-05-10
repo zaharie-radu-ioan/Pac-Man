@@ -3,6 +3,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int player_x = 1;
+int player_y = 1;
+
+// Viețile si scorul jucătorului
+static int lives = 3;
+static int score = 0;
+// Initializez pozitia si vietile jucatorului
+void init_player() {
+    player_x = 1;
+    player_y = 1;
+    lives = 3;
+}
+
+int get_lives() {
+    return lives;
+}
+
+void decrease_life() {
+    lives--;
+    if (lives <= 0) {
+        printf("\nAi fost prins de un inamic! GAME OVER!\n");
+        exit(0);
+    } else {
+        printf("\nAi fost prins de un inamic! Ai mai ramas cu %d vieti!\n", lives);
+        player_x = 1;
+        player_y = 1;
+    }
+}
+
+void reset_lives() {
+    lives = 3;
+}
+
+int is_alive() {
+    return lives > 0;
+}
+
+int get_score() {
+    return score;
+}
+
+void increase_score(int amount) {
+    score += amount;
+}
+
+void reset_score() {
+    score = 0;
+}
 
 int process_input()
 {
