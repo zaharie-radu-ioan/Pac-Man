@@ -102,7 +102,7 @@ void move_enemies() {
             enemies[i].y = new_y;
             set_tile(new_x, new_y, 'E');
     } else if (tile == 'P') {
-        decrease_life();  // logică deja tratată în player.c
+        decrease_life();  
     }
 }
 

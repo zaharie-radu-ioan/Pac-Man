@@ -6,7 +6,7 @@
 int player_x = 1;
 int player_y = 1;
 
-// Viețile si scorul jucătorului
+// Vietile si scorul jucatorului
 static int lives = 3;
 static int score = 0;
 // Initializez pozitia si vietile jucatorului
