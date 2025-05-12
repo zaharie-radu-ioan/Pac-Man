@@ -3,5 +3,7 @@
 
 void load_questions();
 void check_for_question();
+int handleQuestion();
+
 
 #endif

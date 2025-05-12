@@ -10,6 +10,7 @@
 int main() {
     init_terminal();
     srand(time(NULL));
+    shuffle_questions();
     spawn_enemies();
     load_questions();
     build_graph();
@@ -21,9 +22,9 @@ int main() {
 
         if (process_input() == 0) 
             break;
-        check_for_question();
+        
+        check_player_position();
         move_enemies();
-        check_for_finish();
     }
 
     reset_terminal();

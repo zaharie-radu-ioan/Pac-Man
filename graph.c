@@ -2,8 +2,8 @@
 #include "graph.h"
 #include "map.h"
 
-#define WIDTH 20
-#define HEIGHT 10
+//#define GRAPH_WIDTH 20  //ONLY IF NEED PROPER DIMENSIONS
+//#define GRAPH_HEIGHT 10
 
 Node* nodes[HEIGHT][WIDTH];
 

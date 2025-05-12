@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include "map.h"
+#include "question.h"
+
 
 
 char map[HEIGHT][WIDTH + 1] = {
     "##############################",
-    "#P......#............#......Q#",
+    "#.......#............#......Q#",
     "#.######..######.###.####.##.#",
     "#..............#...#........##",
     "#.#######.#####.###.#.##..##.#",
@@ -102,7 +104,21 @@ void move_enemies() {
     }
 }
 
-void check_for_finish() {
+
+void check_player_position() {
+    char tile = get_tile(player_x, player_y);
+
+    if (tile == 'Q') {
+        if (!handleQuestion()) {
+            printf("\nAi raspuns gresit! GAME OVER!\n");
+            exit(0);
+        } else {
+            printf("\nRaspuns corect! Continui jocul!\n");
+            set_tile(player_x, player_y, '.'); // elimină întrebarea
+            score += 10; // adauga punctaj pe intrebare corecta
+        }
+    }
+
     if (player_x == FINISH_X && player_y == FINISH_Y) {
         printf("\n Ai castigat! Ai ajuns la finish!\n");
         exit(0);

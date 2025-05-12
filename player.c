@@ -35,10 +35,8 @@ int process_input()
         exit(0);
     }
 
-    set_tile(player_x, player_y, '.');
     player_x = new_x;
     player_y = new_y;
-    set_tile(player_x, player_y, 'P');
 
     return 1;
 }
