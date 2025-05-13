@@ -1,12 +1,18 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -g -Isrc/include
+LDFLAGS = -Lsrc/lib -lraylib -lopengl32 -lm
 
-OBJS = main.o map.o player.o question.o utils.o graph.o
+SRC = main.c map.c player.c question.c graph.c utils.c
+OBJ = $(SRC:.c=.o)
+TARGET = game.exe
 
-all: game
+all: $(TARGET)
 
-game: $(OBJS)
-	$(CC) $(CFLAGS) -o game $(OBJS)
+$(TARGET): $(OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o game
+	del /Q *.o *.exe
