@@ -41,7 +41,8 @@ void decrease_life() {
     print_lives();
     if (lives <= 0) {
         printf("\nAi ramas fara vieti! GAME OVER!\n");
-        print_score();
+        printf("Scorul tau final este: %d\n", score);
+        printf("Apasa orice tasta pentru a iesi din joc.\n");
         exit(0);
     }
      else {
