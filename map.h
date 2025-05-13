@@ -7,8 +7,8 @@
 #define FINISH_X 28
 #define FINISH_Y 13
 
-
-typedef struct {
+typedef struct
+{
     int x, y;
 } Enemy;
 
