@@ -44,7 +44,7 @@ void print_status() {
     print_lives(); // afisam vietile
     printf("\n");
 
-    printf("Scor: %d\n", get_score()); // scorul e preluat cu funcția
+    print_score(); // afisam scorul
     printf("Controale: W/A/S/D pentru miscare, Q pentru iesire.\n");
 }
 
@@ -111,7 +111,8 @@ void check_for_finish() {
     if (player_x == FINISH_X && player_y == FINISH_Y) {
          increase_score(100);
         printf("\n Ai castigat! Ai ajuns la finish!\n");
-        printf("Scor final: %d\n", get_score());
+        print_score();
+        printf("Felicitari!\n");
         exit(0);
     }
 }

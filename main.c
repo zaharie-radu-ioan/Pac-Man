@@ -18,6 +18,7 @@ int main() {
         clear_screen();
         print_map();
         print_status();
+        print_score();
 
         if (process_input() == 0) 
             break;

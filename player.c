@@ -41,6 +41,7 @@ void decrease_life() {
     print_lives();
     if (lives <= 0) {
         printf("\nAi ramas fara vieti! GAME OVER!\n");
+        print_score();
         exit(0);
     }
      else {
@@ -57,7 +58,8 @@ int is_alive() {
     return lives > 0;
 }
 
-int get_score() {
+int print_score() {
+    printf("Scor: %d\n", score);
     return score;
 }
 
@@ -94,15 +96,19 @@ int process_input()
 
     if (tile == 'E') {
         decrease_life();
-        // Jucătorul a fost resetat deja în decrease_life(), nu modificăm poziția
         return 1;
     }
 
+    // Dacă pășim pe un punct nou, acordăm scor
+    if (tile == '.') {
+        increase_score(10);
+    }
+
     // Mutare normală
-    set_tile(player_x, player_y, '.'); // Ștergem P-ul vechi
+    set_tile(player_x, player_y, ','); // Marcăm că am trecut pe acolo
     player_x = new_x;
     player_y = new_y;
-    set_tile(player_x, player_y, 'P'); // Punem P pe noua poziție
+    set_tile(player_x, player_y, 'P');
 
     return 1;
 }
