@@ -1,0 +1,19 @@
+# Fișiere binare
+*.o
+game
+
+# VSCode settings
+.vscode/
+
+# Fișiere temporare
+*.swp
+*~
+*.tmp
+.DS_Store
+
+# Output / test / CSV / log
+*.csv
+*.log
+
+# Arhive
+*.zip
