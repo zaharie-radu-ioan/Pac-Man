@@ -3,6 +3,7 @@
 #include <time.h>
 #include "map.h"
 #include "player.h"
+#include "question.h"
 
 
 char map[HEIGHT][WIDTH + 1] = {
@@ -105,14 +106,28 @@ void move_enemies() {
 }
 
 }
+void check_player_position() {
+    extern char tile_under_player;
 
+    if (tile_under_player == 'Q') {
+        if (!handleQuestion()) {
+            decrease_life();
+            printf("\nRaspuns gresit! Ai pierdut o viata!\n");
+        } else {
+            printf("\nRaspuns corect! Continui jocul!\n");
+            set_tile(player_x, player_y, '.');
+            increase_score(50);
+            tile_under_player = '.';  //  actualizeaza și variabila
+        }
+    }
 
-void check_for_finish() {
     if (player_x == FINISH_X && player_y == FINISH_Y) {
-         increase_score(100);
-        printf("\n Ai castigat! Ai ajuns la finish!\n");
+        increase_score(100);
+        printf("\nAi castigat! Ai ajuns la finish!\n");
         print_score();
         printf("Felicitari!\n");
         exit(0);
     }
 }
+
+

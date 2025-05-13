@@ -23,6 +23,6 @@ char get_tile(int x, int y);
 void set_tile(int x, int y, char tile);
 void spawn_enemies();
 void move_enemies();
-void check_for_finish();
+void check_player_position();
 
 #endif

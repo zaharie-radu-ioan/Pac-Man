@@ -4,12 +4,13 @@
 // Coordonatele jucatorului
 extern int player_x;
 extern int player_y;
+extern char tile_under_player;
 
-// Functii de initializare și procesare input
+// Functii de initializare si procesare input
 void init_player();
 int process_input();
 
-// Functii legate de vieți
+// Functii legate de vieti
 int get_lives();
 void decrease_life();
 void reset_lives();

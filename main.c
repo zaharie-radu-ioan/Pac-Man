@@ -10,22 +10,23 @@
 int main() {
     init_terminal();
     srand(time(NULL));
+    shuffle_questions();
     spawn_enemies();
-    load_questions();
     build_graph();
 
     while (1) {
-        clear_screen();
-        print_map();
-        print_status();
-        print_score();
+    clear_screen();
+    print_map();
+    print_status();
+    
+    if (process_input() == 0) 
+        break;
 
-        if (process_input() == 0) 
-            break;
-        check_for_question();
-        move_enemies();
-        check_for_finish();
-    }
+    check_player_position();
+    move_enemies();
+    
+}
+
 
     reset_terminal();
     return 0;
