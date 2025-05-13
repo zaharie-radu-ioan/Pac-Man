@@ -8,7 +8,7 @@ int player_y = 1;
 
 // Vietile si scorul jucatorului
 static int lives = 3;
-static int score = 0;
+int score = 0;
 // Initializez pozitia si vietile jucatorului
 void init_player() {
     player_x = 1;
@@ -19,16 +19,33 @@ void init_player() {
 int get_lives() {
     return lives;
 }
+void print_lives() {
+        printf("Vieti: ");
+    for (int i = 0; i < lives; i++) {
+        printf("❤️ ");
+    }
+    printf("\n");
+}
+
+void reset_player_position() {
+    set_tile(player_x, player_y, '.'); // curăță vechiul P
+    player_x = 1;
+    player_y = 1;
+    set_tile(player_x, player_y, 'P');
+}
+
 
 void decrease_life() {
+    
     lives--;
+    print_lives();
     if (lives <= 0) {
-        printf("\nAi fost prins de un inamic! GAME OVER!\n");
+        printf("\nAi ramas fara vieti! GAME OVER!\n");
         exit(0);
-    } else {
+    }
+     else {
         printf("\nAi fost prins de un inamic! Ai mai ramas cu %d vieti!\n", lives);
-        player_x = 1;
-        player_y = 1;
+        reset_player_position(); // Resetăm poziția jucătorului
     }
 }
 
@@ -73,20 +90,19 @@ int process_input()
     char tile = get_tile(new_x, new_y);
 
     if (tile == '#')
-    {
+        return 1;
+
+    if (tile == 'E') {
+        decrease_life();
+        // Jucătorul a fost resetat deja în decrease_life(), nu modificăm poziția
         return 1;
     }
 
-    if (tile == 'E')
-    {
-        printf("\n Ai fost prins de un inamic! GAME OVER!\n");
-        exit(0);
-    }
-
-    set_tile(player_x, player_y, '.');
+    // Mutare normală
+    set_tile(player_x, player_y, '.'); // Ștergem P-ul vechi
     player_x = new_x;
     player_y = new_y;
-    set_tile(player_x, player_y, 'P');
+    set_tile(player_x, player_y, 'P'); // Punem P pe noua poziție
 
     return 1;
 }

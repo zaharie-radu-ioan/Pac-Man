@@ -40,10 +40,8 @@ void print_map() {
 }
 
 void print_status() {
-    printf("Vieți: ");
-    for (int i = 0; i < get_lives(); i++) {
-        printf("❤️ ");
-    }
+    
+    print_lives(); // afisam vietile
     printf("\n");
 
     printf("Scor: %d\n", get_score()); // scorul e preluat cu funcția
