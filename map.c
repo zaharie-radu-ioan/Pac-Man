@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 #include "map.h"
 #include "player.h"
 #include "question.h"
+#include "graph.h"
 
 char map[HEIGHT][WIDTH + 1] = {
     "##############################",
-    "#P......#............#......Q#",
+    "#P...................#......Q#",
     "#.######..######.###.####.##.#",
     "#..............#...#........##",
     "#.#######.#####.###.#.##..##.#",
@@ -71,85 +73,77 @@ void spawn_enemies()
         int y = rand() % HEIGHT;
 
         char tile = get_tile(x, y);
-        if ((tile == '.' || tile == ' ') && !(x == player_x && y == player_y))
+        if ((tile == '.' || tile == ' ') && manhattan_distance(x, y, player_x, player_y) > 5)
+
         {
             enemies[placed].x = x;
             enemies[placed].y = y;
+            enemies[placed].underneath = get_tile(x, y);  // salveaza ce era sub
             set_tile(x, y, 'E');
+
             placed++;
         }
     }
 }
 
-void move_enemies()
-{
-    for (int i = 0; i < num_enemies; i++)
-    {
-        int dx = 0, dy = 0;
-        int dir = rand() % 4;
+int manhattan_distance(int x1, int y1, int x2, int y2) {
+    return abs(x1 - x2) + abs(y1 - y2);
+}
 
-        switch (dir)
-        {
-        case 0:
-            dx = 1;
-            break;
-        case 1:
-            dx = -1;
-            break;
-        case 2:
-            dy = 1;
-            break;
-        case 3:
-            dy = -1;
-            break;
-        }
+void move_enemies() {
+    bool player_hit = false;
 
-        int new_x = enemies[i].x + dx;
-        int new_y = enemies[i].y + dy;
+    for (int i = 0; i < num_enemies; i++) {
+        if (player_hit) break;  
 
-        if (new_x < 0 || new_x >= WIDTH || new_y < 0 || new_y >= HEIGHT)
-            continue;
+        int ex = enemies[i].x;
+        int ey = enemies[i].y;
 
-        char tile = get_tile(new_x, new_y);
-        if (tile == '.' || tile == ' ')
-        {
-            set_tile(enemies[i].x, enemies[i].y, '.');
-            enemies[i].x = new_x;
-            enemies[i].y = new_y;
-            set_tile(new_x, new_y, 'E');
-        }
-        else if (tile == 'P')
-        {
-            decrease_life();
+        if (manhattan_distance(ex, ey, player_x, player_y) <= 6) {
+            Path path = shortest_path(ex, ey, player_x, player_y);
+
+            if (path.length > 0) {
+                Node* next = path.steps[0];
+                char next_tile = get_tile(next->x, next->y);
+
+                // daca drumul e blocat sau deja ocupat, nu ne miscam
+                if (next_tile == '#' || next_tile == 'E') 
+                    continue;
+
+                // daca il prinde pe player
+                if (next->x == player_x && next->y == player_y) {
+                    decrease_life();
+                    player_hit = true;
+                    continue;                // nu mutam inamicul acum
+                }
+
+                // restauram ce era sub inamicul anterior
+                set_tile(ex, ey, enemies[i].underneath);
+
+                // salvam ce e in noua pozitie si mutam inamicul
+                enemies[i].underneath = get_tile(next->x, next->y);
+                enemies[i].x = next->x;
+                enemies[i].y = next->y;
+                set_tile(next->x, next->y, 'E');
+            }
         }
     }
 }
-void check_player_position()
-{
-    extern char tile_under_player;
 
-    if (tile_under_player == 'Q')
-    {
-        if (!handleQuestion())
-        {
-            decrease_life();
-            printf("\nRaspuns gresit! Ai pierdut o viata!\n");
+void check_player_position() {
+    if (tile_under_player == 'Q') {
+        if (handleQuestion()) {
+            increase_score(100); // raspuns corect
+        } else {
+            decrease_life(); // raspuns gresit
         }
-        else
-        {
-            printf("\nRaspuns corect! Continui jocul!\n");
-            set_tile(player_x, player_y, '.');
-            increase_score(50);
-            tile_under_player = '.'; //  actualizeaza și variabila
-        }
+        tile_under_player = '.'; // intrebarea a fost consumata
     }
 
-    if (player_x == FINISH_X && player_y == FINISH_Y)
-    {
-        increase_score(100);
-        printf("\nAi castigat! Ai ajuns la finish!\n");
-        print_score();
-        printf("Felicitari!\n");
+    if (tile_under_player == 'F') {
+        print_map();
+        printf("\n Ai castigat! Ai ajuns la finish!\n");
         exit(0);
     }
 }
+

@@ -53,45 +53,58 @@ void build_graph()
         }
     }
 }
+Path shortest_path(int sx, int sy, int dx, int dy) {
+    Path path = {0};
 
-int shortest_path(int sx, int sy, int dx, int dy)
-{
-    Node *start = get_node(sx, sy);
-    Node *end = get_node(dx, dy);
-    if (!start || !end)
-        return -1;
-
+    // Reset noduri
     for (int y = 0; y < HEIGHT; y++)
-        for (int x = 0; x < WIDTH; x++)
-            if (nodes[y][x])
-            {
-                nodes[y][x]->visited = 0;
-                nodes[y][x]->distance = -1;
+        for (int x = 0; x < WIDTH; x++) {
+            Node* n = get_node(x, y);
+            if (n) {
+                n->visited = 0;
+                n->distance = -1;
+                n->parent = NULL;
             }
+        }
 
-    Node *queue[WIDTH * HEIGHT];
+    Node* start = get_node(sx, sy);
+    Node* dest = get_node(dx, dy);
+    if (!start || !dest) return path;
+
+    Node* queue[WIDTH * HEIGHT];
     int front = 0, rear = 0;
+
     queue[rear++] = start;
     start->visited = 1;
     start->distance = 0;
 
-    while (front < rear)
-    {
-        Node *current = queue[front++];
-        if (current == end)
-            return current->distance;
+    while (front < rear) {
+        Node* curr = queue[front++];
+        if (curr == dest) break;
 
-        for (int i = 0; i < 4; i++)
-        {
-            Node *n = current->neighbors[i];
-            if (n && !n->visited)
-            {
+        for (int i = 0; i < 4; i++) {
+            Node* n = curr->neighbors[i];
+            if (n && !n->visited) {
                 n->visited = 1;
-                n->distance = current->distance + 1;
+                n->distance = curr->distance + 1;
+                n->parent = curr;
                 queue[rear++] = n;
             }
         }
     }
 
-    return -1;
+    Node* step = dest;
+    while (step && step != start) {
+        path.steps[path.length++] = step;
+        step = step->parent;
+    }
+
+    // Inversare drum
+    for (int i = 0; i < path.length / 2; i++) {
+        Node* tmp = path.steps[i];
+        path.steps[i] = path.steps[path.length - 1 - i];
+        path.steps[path.length - 1 - i] = tmp;
+    }
+
+    return path;
 }

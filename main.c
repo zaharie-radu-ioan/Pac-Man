@@ -24,7 +24,6 @@ int main()
         if (process_input() == 0)
             break;
 
-        check_player_position();
         move_enemies();
     }
 

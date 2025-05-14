@@ -3,5 +3,6 @@
 
 void load_questions();
 int handleQuestion();
+void shuffle_questions();
 
 #endif

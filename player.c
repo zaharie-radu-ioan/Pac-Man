@@ -1,5 +1,6 @@
 #include "map.h"
 #include "utils.h"
+#include "question.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,7 +37,10 @@ void print_lives()
 
 void reset_player_position()
 {
-    set_tile(player_x, player_y, tile_under_player);
+    if (tile_under_player == '.')
+        set_tile(player_x, player_y, ',');
+    else
+        set_tile(player_x, player_y, tile_under_player);
     player_x = 1;
     player_y = 1;
     tile_under_player = '.'; // reset
@@ -130,6 +134,8 @@ int process_input()
     player_x = new_x;
     player_y = new_y;
     set_tile(player_x, player_y, 'P');
+
+    check_player_position();
 
     return 1;
 }
