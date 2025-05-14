@@ -1,9 +1,10 @@
+#include <stdio.h>
 #include "raylib.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-#define PLAYER_SPEED 5.0f
+#define PLAYER_SPEED 2.0f
 #define CELL_SIZE 40
 
 // Structura pentru harta jocului
@@ -24,14 +25,18 @@ char map1[15][23] = {
     "####################"};
 
 // Funcție de coliziune cu pereții
+// Funcție de coliziune cu pereții
 int CheckCollisionWithWalls(Vector2 playerPosition)
 {
-    int mapX = playerPosition.x / CELL_SIZE;
-    int mapY = playerPosition.y / CELL_SIZE;
+    int mapX = (int)(playerPosition.x / CELL_SIZE); // Adăugăm cast pentru a obține un int
+    int mapY = (int)(playerPosition.y / CELL_SIZE);
 
-    if (map1[mapY][mapX] == '#')
+    if (mapX >= 0 && mapX < 23 && mapY >= 0 && mapY < 15) // Verificăm limitele hărții
     {
-        return 1; // Coliziune cu peretele
+        if (map1[mapY][mapX] == '#')
+        {
+            return 1; // Coliziune cu peretele
+        }
     }
     return 0; // Fără coliziune
 }
