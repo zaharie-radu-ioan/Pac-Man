@@ -7,8 +7,8 @@
 #define FINISH_X 28
 #define FINISH_Y 13
 
-
-typedef struct {
+typedef struct
+{
     int x, y;
 } Enemy;
 
@@ -17,12 +17,14 @@ extern int score;
 extern Enemy enemies[MAX_ENEMIES];
 extern int num_enemies;
 
+void print_lives(void);
+
 void print_map();
 void print_status();
 char get_tile(int x, int y);
 void set_tile(int x, int y, char tile);
 void spawn_enemies();
 void move_enemies();
-void check_for_finish();
+void check_player_position();
 
 #endif

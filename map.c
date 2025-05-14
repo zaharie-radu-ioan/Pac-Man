@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "map.h"
+#include "player.h"
+#include "question.h"
 
 char map[HEIGHT][WIDTH + 1] = {
     "##############################",
@@ -19,9 +21,6 @@ char map[HEIGHT][WIDTH + 1] = {
     "#.###.#.##.##.###.#####.#.##.#",
     "#Q....#.....#.#........#....F#",
     "##############################"};
-
-int player_x = 1, player_y = 1;
-int score = 0;
 
 Enemy enemies[MAX_ENEMIES];
 int num_enemies = MAX_ENEMIES;
@@ -43,7 +42,11 @@ void print_map()
 
 void print_status()
 {
-    printf("\nScor: %d\n", score);
+
+    print_lives(); // afisam vietile
+    printf("\n");
+
+    print_score(); // afisam scorul
     printf("Controale: W/A/S/D pentru miscare, Q pentru iesire.\n");
 }
 
@@ -117,17 +120,36 @@ void move_enemies()
         }
         else if (tile == 'P')
         {
-            printf("\n Ai fost prins de un inamic! GAME OVER!\n");
-            exit(0);
+            decrease_life();
         }
     }
 }
-
-void check_for_finish()
+void check_player_position()
 {
+    extern char tile_under_player;
+
+    if (tile_under_player == 'Q')
+    {
+        if (!handleQuestion())
+        {
+            decrease_life();
+            printf("\nRaspuns gresit! Ai pierdut o viata!\n");
+        }
+        else
+        {
+            printf("\nRaspuns corect! Continui jocul!\n");
+            set_tile(player_x, player_y, '.');
+            increase_score(50);
+            tile_under_player = '.'; //  actualizeaza și variabila
+        }
+    }
+
     if (player_x == FINISH_X && player_y == FINISH_Y)
     {
-        printf("\n Ai castigat! Ai ajuns la finish!\n");
+        increase_score(100);
+        printf("\nAi castigat! Ai ajuns la finish!\n");
+        print_score();
+        printf("Felicitari!\n");
         exit(0);
     }
 }

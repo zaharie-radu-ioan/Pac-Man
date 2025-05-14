@@ -23,13 +23,23 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     endif()
 endif()
 
-# Our Project
+# List of source files (add all your .c files here)
+set(SOURCES
+    main.c
+    graph.c
+    map.c
+    player.c
+    question.c
+    utils.c
+)
 
-add_executable(${PROJECT_NAME} main.c)
-#set(raylib_VERBOSE 1)
+# Our Project
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+# Link Raylib to the project
 target_link_libraries(${PROJECT_NAME} raylib)
 
-# Web Configurations
+# Web Configurations (Only for Web builds)
 if (${PLATFORM} STREQUAL "Web")
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html") # Tell Emscripten to build an example.html file.
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY -s GL_ENABLE_GET_PROC_ADDRESS=1")
