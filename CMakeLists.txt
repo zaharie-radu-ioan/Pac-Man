@@ -14,7 +14,11 @@ if (NOT raylib_FOUND)
     FetchContent_MakeAvailable(raylib)
 endif()
 
-add_executable(${PROJECT_NAME} main.c)
+add_executable(${PROJECT_NAME}
+    main.c
+    question_raylib.c
+)
+
 target_link_libraries(${PROJECT_NAME} raylib)
 
 if (APPLE)

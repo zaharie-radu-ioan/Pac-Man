@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "question_raylib.h"
 
 #define SCREEN_WIDTH   800
 #define SCREEN_HEIGHT  600
@@ -16,13 +17,13 @@
 #define MAX_ENEMIES    10
 
 // hartă: '#' zid, '.' punct, 'X' exit, 'P' spawn, 'E' inamic
-static char map1[MAP_HEIGHT][MAP_WIDTH+1] = {
+ char map1[MAP_HEIGHT][MAP_WIDTH+1] = {
     "####################",
-    "#P........#........#",
+    "#P........#.........#",
     "#.#######.#.#######.#",
     "#.#.....#.#.#.....#.#",
     "#.#.###.#.#.#.###.#.#",
-    "#.#.#.#...E...#.#.#.#",
+    "#Q#.#.#...E...#.#.#.#",
     "#.#.###.#.###.###.#.#",
     "#.#.....#.#.#.....#.#",
     "#.#######.#.###.###.#",
@@ -41,7 +42,7 @@ static Enemy enemies[MAX_ENEMIES];
 static int enemyCount = 0;
 
 static int player_x = 1, player_y = 1;
-static int lives       = 3, score = 0;
+int lives       = 3, score = 0;
 static bool game_over  = false, game_win = false;
 static double lastPlayerMove = 0, lastEnemyMove = 0;
 
@@ -110,6 +111,7 @@ static void InitGame(void) {
             }
         }
     }
+    init_questions(); // inițializare întrebări
 }
 
 // desenează hartă + entități
@@ -157,6 +159,9 @@ static void HandlePlayerInput(void) {
     if (map1[ny][nx] == 'X') { game_win = true; game_over = true; }
 
     player_x = nx; player_y = ny;
+
+    trigger_question_if_needed(player_x, player_y); // verificăm întrebarea
+
     lastPlayerMove = now;
 }
 
@@ -182,6 +187,13 @@ static void MoveEnemies(void) {
     }
 }
 
+void CheckQuestionTrigger() {
+    if(map1[player_y][player_x] == 'Q') {
+        map1[player_y][player_x] = '.'; // eliminăm întrebarea din hartă
+        trigger_question_if_needed(player_x, player_y);
+    }
+}
+
 int main(void) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pac-Man Grafic (BFS Graph)");
     SetTargetFPS(60);
@@ -189,8 +201,11 @@ int main(void) {
 
     while (!WindowShouldClose()) {
         if (!game_over) {
-            HandlePlayerInput();
-            MoveEnemies();
+            if (!is_question_active()) {
+                HandlePlayerInput();
+                MoveEnemies();
+            }
+            update_question();
         }
 
         BeginDrawing();
@@ -199,6 +214,8 @@ int main(void) {
             char buf[64];
             sprintf(buf, "Score: %d  Lives: %d", score, lives);
             DrawText(buf, 10, SCREEN_HEIGHT-28, 20, WHITE);
+
+            draw_question(); // desenează întrebarea activă
 
             if (game_over) {
                 const char *msg = game_win ? "YOU WIN!" : "GAME OVER";

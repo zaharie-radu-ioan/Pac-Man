@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/PacManRaylib.dir/main.c.o CMakeFiles/PacManRaylib.dir/question_raylib.c.o -o PacManRaylib  _deps/raylib-build/raylib/libraylib.a -lm -lpthread /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/librt.a -lm -ldl 
