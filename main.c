@@ -5,12 +5,12 @@
 #include <time.h>
 #include "question_raylib.h"
 
-#define SCREEN_WIDTH   800
-#define SCREEN_HEIGHT  600
-#define CELL_SIZE      32
+#define SCREEN_WIDTH   (MAP_WIDTH * CELL_SIZE)
+#define SCREEN_HEIGHT  (MAP_HEIGHT * CELL_SIZE)
+#define CELL_SIZE      38
 
-#define MAP_WIDTH      20
-#define MAP_HEIGHT     15
+#define MAP_WIDTH      22
+#define MAP_HEIGHT     16
 
 #define MOVE_DELAY     150    // ms între mutări player
 #define ENEMY_DELAY    300    // ms între mutări inamici
@@ -18,21 +18,21 @@
 
 // hartă: '#' zid, '.' punct, 'X' exit, 'P' spawn, 'E' inamic
  char map1[MAP_HEIGHT][MAP_WIDTH+1] = {
-    "####################",
+    "#####################",
     "#P........#.........#",
     "#.#######.#.#######.#",
     "#.#.....#.#.#.....#.#",
     "#.#.###.#.#.#.###.#.#",
-    "#Q#.#.#...E...#.#.#.#",
+    "#.#.#.#...E...#.#.#.#",
     "#.#.###.#.###.###.#.#",
-    "#.#.....#.#.#.....#.#",
+    "#Q#.....#.#.#.....#.#",
     "#.#######.#.###.###.#",
-    "#.......#.#........X",
-    "#.#####.#.#.#####.##",
-    "#.......#.........##",
-    "#.##############.###",
-    "#..................#",
-    "####################"
+    "#.......#.#.........X",
+    "#.#####.#.#.#####..##",
+    "#...Q...#..........##",
+    "#.##############..###",
+    "#...Q...............#",
+    "#####################"
 };
 
 typedef struct { int x, y; } Point;
@@ -43,7 +43,7 @@ static int enemyCount = 0;
 
 static int player_x = 1, player_y = 1;
 int lives       = 3, score = 0;
-static bool game_over  = false, game_win = false;
+bool game_over  = false, game_win = false;
 static double lastPlayerMove = 0, lastEnemyMove = 0;
 
 // direcții pentru vecini (4-way)
@@ -111,7 +111,7 @@ static void InitGame(void) {
             }
         }
     }
-    init_questions(); // inițializare întrebări
+    InitQuestion(); // inițializare întrebări
 }
 
 // desenează hartă + entități
@@ -122,6 +122,8 @@ static void DrawMap(void) {
             switch (map1[y][x]) {
                 case '#': DrawRectangleV(pos, (Vector2){CELL_SIZE,CELL_SIZE}, DARKGRAY); break;
                 case '.': DrawCircle(pos.x+CELL_SIZE/2,pos.y+CELL_SIZE/2,5,GOLD); break;
+                case 'Q': DrawRectangleV(pos,(Vector2){CELL_SIZE,CELL_SIZE}, BLUE);
+                          DrawText("Q",pos.x+4,pos.y+CELL_SIZE/2-8,14,WHITE); break;
                 case 'X': DrawRectangleV(pos,(Vector2){CELL_SIZE,CELL_SIZE},GREEN);
                           DrawText("EXIT",pos.x+4,pos.y+CELL_SIZE/2-8,14,WHITE); break;
                 default: break;
@@ -151,16 +153,21 @@ static void HandlePlayerInput(void) {
     else if (IsKeyDown(KEY_DOWN))  ny++;
     else return;
 
-    if (!valid(nx, ny) && map1[ny][nx] != 'X') return;
+    if (!valid(nx, ny) && map1[ny][nx] != 'X' && map1[ny][nx] != 'Q' ) return;
 
-    // colecție punct
-    if (map1[ny][nx] == '.') { score += 10; map1[ny][nx] = ' '; }
-    // exit
-    if (map1[ny][nx] == 'X') { game_win = true; game_over = true; }
-
+    char title = map1[ny][nx];
     player_x = nx; player_y = ny;
 
-    trigger_question_if_needed(player_x, player_y); // verificăm întrebarea
+    // colecție punct
+    if (title == '.') { score += 10; map1[ny][nx] = ' '; }
+    // exit
+    if (title == 'X') { game_win = true; game_over = true; score += 100; }
+    // intrebare
+    if (title == 'Q') {
+        map1[ny][nx] = '.'; // înlocuiește cu punct
+        trigger_question_if_needed(player_x, player_y);
+    }
+
 
     lastPlayerMove = now;
 }
@@ -188,10 +195,7 @@ static void MoveEnemies(void) {
 }
 
 void CheckQuestionTrigger() {
-    if(map1[player_y][player_x] == 'Q') {
-        map1[player_y][player_x] = '.'; // eliminăm întrebarea din hartă
         trigger_question_if_needed(player_x, player_y);
-    }
 }
 
 int main(void) {
@@ -215,7 +219,10 @@ int main(void) {
             sprintf(buf, "Score: %d  Lives: %d", score, lives);
             DrawText(buf, 10, SCREEN_HEIGHT-28, 20, WHITE);
 
-            draw_question(); // desenează întrebarea activă
+            if (is_question_active()) {
+                draw_question();
+            }
+
 
             if (game_over) {
                 const char *msg = game_win ? "YOU WIN!" : "GAME OVER";
