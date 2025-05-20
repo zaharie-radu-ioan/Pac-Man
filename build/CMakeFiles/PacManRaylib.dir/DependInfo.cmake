@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/luca/Desktop/Facultate/Joc/Pac-Man/main.c" "CMakeFiles/PacManRaylib.dir/main.c.o" "gcc" "CMakeFiles/PacManRaylib.dir/main.c.o.d"
-  "/home/luca/Desktop/Facultate/Joc/Pac-Man/question_raylib.c" "CMakeFiles/PacManRaylib.dir/question_raylib.c.o" "gcc" "CMakeFiles/PacManRaylib.dir/question_raylib.c.o.d"
+  "C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/main.c" "CMakeFiles/PacManRaylib.dir/main.c.obj" "gcc" "CMakeFiles/PacManRaylib.dir/main.c.obj.d"
+  "C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/question_raylib.c" "CMakeFiles/PacManRaylib.dir/question_raylib.c.obj" "gcc" "CMakeFiles/PacManRaylib.dir/question_raylib.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PacManRaylib.dir/main.c.o"
-  "CMakeFiles/PacManRaylib.dir/main.c.o.d"
-  "CMakeFiles/PacManRaylib.dir/question_raylib.c.o"
-  "CMakeFiles/PacManRaylib.dir/question_raylib.c.o.d"
-  "PacManRaylib"
+  "CMakeFiles/PacManRaylib.dir/main.c.obj"
+  "CMakeFiles/PacManRaylib.dir/main.c.obj.d"
+  "CMakeFiles/PacManRaylib.dir/question_raylib.c.obj"
+  "CMakeFiles/PacManRaylib.dir/question_raylib.c.obj.d"
+  "PacManRaylib.exe"
+  "PacManRaylib.exe.manifest"
   "PacManRaylib.pdb"
+  "libPacManRaylib.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

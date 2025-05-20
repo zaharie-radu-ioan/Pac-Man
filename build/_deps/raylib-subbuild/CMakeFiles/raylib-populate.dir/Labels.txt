@@ -1,14 +1,14 @@
 # Target labels
  raylib-populate
 # Source files and their labels
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test.rule
-/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test.rule
+C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update.rule

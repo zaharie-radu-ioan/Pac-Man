@@ -35,7 +35,7 @@
     }
 
     void InitQuestion() {
-        question_count = 70; // doar câteva exemple
+        question_count = 70; // doar cateva exemple
 strcpy(questions[0].question, "What is the ability of machines to perform tasks that would normally require human intelligence?\nA. Artificial intelligence\nB. Data science\nC. Data learning\nD. Machine intelligence");
 questions[0].answer = 'A';
 
@@ -255,7 +255,7 @@ questions[69].answer = 'A';
     }
 
     void trigger_question_if_needed(int px, int py) {
-        // Ex: dacă pășești pe o celulă 'Q' din hartă
+        // Ex: daca pasesti pe o celula 'Q' din harta
         extern char map1[15][21];
             question_active = 1;
             current_q = shuffled_indexes[current_question_index++];
@@ -274,7 +274,7 @@ questions[69].answer = 'A';
             if (selected_answer == questions[current_q].answer) {
                 score += 50;
             } else {
-                // scade viața dacă ai un sistem de vieți extern
+                // scade viata daca ai un sistem de vieti extern
                 extern int lives;
                 lives--;
                 if (lives <= 0) {

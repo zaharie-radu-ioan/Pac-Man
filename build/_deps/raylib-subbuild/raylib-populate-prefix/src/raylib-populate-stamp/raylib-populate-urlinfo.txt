@@ -3,10 +3,10 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=/usr/bin/cmake;-P;/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/download-raylib-populate.cmake;COMMAND;/usr/bin/cmake;-P;/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/verify-raylib-populate.cmake;COMMAND;/usr/bin/cmake;-P;/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/extract-raylib-populate.cmake
-source_dir=/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps/raylib-src
-work_dir=/home/luca/Desktop/Facultate/Joc/Pac-Man/build/_deps
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/download-raylib-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/verify-raylib-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/extract-raylib-populate.cmake
+source_dir=C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps/raylib-src
+work_dir=C:/Users/Marus/Documents/GitHub/Clona-First-Git/Pac-Man/build/_deps
 url(s)=https://github.com/raysan5/raylib/archive/refs/tags/5.5.tar.gz
 hash=
-no_extract=
+      no_extract=
 
