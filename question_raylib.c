@@ -291,6 +291,6 @@ questions[69].answer = 'A';
         DrawRectangle(50, 50, 700, 300, LIGHTGRAY);
         DrawRectangleLines(50, 50, 700, 300, BLACK);
 
-        DrawText(questions[current_q].question, 60, 60, 20, DARKBLUE);
+        DrawText(questions[current_q].question, 60, 60, 16, DARKBLUE);
         DrawText("Press A / B / C / D", 60, 280, 20, MAROON);
     }
