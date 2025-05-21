@@ -228,27 +228,43 @@ static void MoveEnemies(void) {
 
     for (int i = 0; i < enemyCount; i++) {
         int ex = enemies[i].x, ey = enemies[i].y;
-        int tx, ty;
+        int tx = ex, ty = ey;
+
+        
+        if (ex == player_x && ey == player_y) {
+            lives--;
+            if (lives <= 0) game_over = true;
+            else {
+                enemies[i].x = enemySpawn[i].x;
+                enemies[i].y = enemySpawn[i].y;
+                player_x = spawn_x;
+                player_y = spawn_y;
+            }
+            return;  
+        }
+
+       
         if (bfs_next_step(ex, ey, player_x, player_y, &tx, &ty)) {
+            
+            if (tx == player_x && ty == player_y) {
+                lives--;
+                if (lives <= 0) game_over = true;
+                else {
+                    enemies[i].x = enemySpawn[i].x;
+                    enemies[i].y = enemySpawn[i].y;
+                    player_x = spawn_x;
+                    player_y = spawn_y;
+                }
+                return;  
+            }
+
+            
             enemies[i].x = tx;
             enemies[i].y = ty;
         }
-       if (enemies[i].x == player_x && enemies[i].y == player_y) {
-    lives--;
-    if (lives <= 0) game_over = true;
-    else {
-        // Reseteaza pozitia inamicului la spawn-ul lui
-        enemies[i].x = enemySpawn[i].x;
-        enemies[i].y = enemySpawn[i].y;
-
-        // Reseteaza pozitia jucatorului la spawn
-        player_x = spawn_x;
-        player_y = spawn_y;
-        break;
-        }
-        }
     }
 }
+
 
 void CheckQuestionTrigger() {
     trigger_question_if_needed(player_x, player_y);

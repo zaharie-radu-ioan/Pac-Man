@@ -1,0 +1,1 @@
+Pentru rularea corecta a jocului porniti aplicatia PacManRaylib in interiorul folderului Build !
